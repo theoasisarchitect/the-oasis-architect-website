@@ -1,0 +1,2632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Oasis Architect</title>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold: #C8A84B;
+    --gold-light: #EDD98A;
+    --gold-deep: #9A7218;
+    --navy: #1B2A4A;
+    --navy-deep: #111D35;
+    --white: #FAFAF8;
+    --cream: #F5F1EA;
+    --earth: #8B6F47;
+    --blush: #D4A8A0;
+    --text: #2C2C2C;
+    --muted: #888;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; font-weight: 300; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+  /* ── TYPOGRAPHY ── */
+  .script { font-family: 'Pinyon Script', cursive; }
+  .serif  { font-family: 'Cormorant Garamond', serif; }
+
+  /* nav fixed rule removed */
+  /* nav removed */
+  
+  
+  
+  
+  
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* Wiggle nav items */
+  
+  
+  
+  .nav-wiggle a:hover { color: var(--gold); }
+  
+  .nav-wiggle li:hover 
+
+  /* Social icons row under nav wiggle */
+  
+  
+  .nav-social a:hover { color: var(--gold); }
+  
+
+  /* ── HERO ── */
+  
+  
+  
+  .gallery-img:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+  .gallery-img:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .gallery-img:nth-child(3) { grid-column: 3; grid-row: 1; }
+  .gallery-img:nth-child(4) { grid-column: 2; grid-row: 2; }
+  .gallery-img:nth-child(5) { grid-column: 3; grid-row: 2; }
+  .gallery-img:nth-child(6) { grid-column: 1; grid-row: 3; }
+  .gallery-img:nth-child(7) { grid-column: 2; grid-row: 3; }
+  .gallery-img:nth-child(8) { grid-column: 3; grid-row: 3; }
+  
+  
+
+  /* Gallery placeholder colors while images load */
+  
+  
+  
+  
+  
+  
+  
+  
+
+  /* Gallery overlay with logo centered */
+  .hero-overlay {
+    position: absolute; inset: 72px 0 0 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .hero-logo-wrap {
+    background: rgba(250,250,248,0.88);
+    backdrop-filter: blur(6px);
+    border-radius: 50%;
+    width: 260px; height: 260px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.14);
+    border: 1px solid rgba(200,168,75,0.25);
+  }
+  .hero-logo-text {
+    text-align: center;
+  }
+  .hero-logo-text .script-name {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 52px;
+    background: linear-gradient(160deg, #9A7218 0%, #C8A84B 30%, #EDD98A 55%, #B8922A 80%, #C8A84B 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    line-height: 1; display: block;
+  }
+  .hero-logo-text .script-name2 {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 42px;
+    background: linear-gradient(160deg, #9A7218 0%, #C8A84B 30%, #EDD98A 55%, #B8922A 80%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    line-height: 1.1; display: block;
+  }
+  .hero-logo-text .tagline-small {
+    font-family: 'Jost', sans-serif;
+    font-size: 8px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold-deep); opacity: 0.8; margin-top: 10px; display: block;
+    font-weight: 300;
+  }
+
+  /* Nav wiggle + social below gallery */
+  .hero-bottom {
+    width: 100%; max-width: 960px;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 28px 0 0;
+    gap: 16px;
+  }
+  .hero-nav {
+    display: flex; gap: 0; list-style: none;
+    border-top: 1px solid rgba(200,168,75,0.2);
+    border-bottom: 1px solid rgba(200,168,75,0.2);
+    padding: 12px 0;
+  }
+  .hero-nav li { position: relative; }
+  .hero-nav a {
+    text-decoration: none; color: var(--text);
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    font-weight: 300; padding: 8px 20px; display: block;
+    transition: color 0.3s;
+  }
+  .hero-nav a:hover { color: var(--gold-deep); }
+  .hero-nav li + li::before {
+    content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    height: 12px; width: 1px; background: rgba(200,168,75,0.3);
+  }
+
+  /* Wiggle SVG under each nav item */
+  .wiggle-svg { display: block; margin: 2px auto 0; }
+
+  .hero-social {
+    display: flex; gap: 24px; align-items: center;
+  }
+  .hero-social a {
+    color: var(--muted); transition: color 0.3s;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    text-decoration: none; font-weight: 300;
+  }
+  .hero-social a:hover { color: var(--gold); }
+  .hero-social svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 32px 40px; }
+  .section-inner { max-width: 960px; margin: 0 auto; }
+  .section-label {
+    font-size: 12px; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold); font-weight: 300; margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 300; line-height: 1.15;
+    color: var(--text); margin-bottom: 16px;
+  }
+  .gold-rule {
+    width: 48px; height: 1px; background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    margin-bottom: 16px;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--navy); }
+  #about .section-title { color: var(--white); }
+  #about .section-label { color: var(--gold-light); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .about-story p {
+    font-size: 16px; line-height: 1.9; color: rgba(250,250,248,0.75);
+    margin-bottom: 16px; font-weight: 300;
+  }
+  .about-manifesto {
+    border-left: 1px solid rgba(200,168,75,0.3);
+    padding-left: 40px;
+  }
+  .about-manifesto p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-style: italic; font-weight: 300;
+    color: rgba(250,250,248,0.9); line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .about-manifesto .manifesto-lines {
+    margin-top: 40px;
+    border-top: 1px solid rgba(200,168,75,0.2);
+    padding-top: 32px;
+  }
+  .about-manifesto .manifesto-lines p {
+    font-size: 16px; color: var(--gold-light); font-style: italic;
+    margin-bottom: 8px;
+  }
+
+  /* ── SERVICES ── */
+  #services { background: var(--white); }
+  .services-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    margin-top: 20px;
+  }
+  .service-card {
+    padding: 48px 40px;
+    border: none;
+    position: relative; overflow: hidden;
+    transition: all 0.3s;
+  }
+  
+  
+  
+  .service-card.navy-card {
+    background: var(--navy); grid-column: 1 / 3;
+  }
+  .service-number {
+    font-size: 10px; letter-spacing: 4px; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 16px; font-weight: 300;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; margin-bottom: 16px; color: var(--text);
+  }
+  .navy-card .service-name { color: var(--white); }
+  .service-desc {
+    font-size: 15px; line-height: 1.8; color: var(--muted);
+    margin-bottom: 28px; font-weight: 300;
+  }
+  .navy-card .service-desc { color: rgba(250,250,248,0.6); }
+  .service-includes { list-style: none; }
+  .service-includes li {
+    font-size: 12px; color: var(--text); padding: 6px 0;
+    border-bottom: 1px solid rgba(200,168,75,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    font-weight: 300;
+  }
+  .navy-card .service-includes li { color: rgba(250,250,248,0.75); border-color: rgba(250,250,248,0.08); }
+  .service-includes li .price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; color: var(--gold); font-style: italic;
+  }
+  .service-tag {
+    display: inline-block; margin-top: 20px;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold-deep); border: 1px solid rgba(200,168,75,0.3);
+    padding: 6px 14px; font-weight: 300;
+  }
+
+  /* Process steps */
+  .process-section {
+    margin-top: 80px; padding-top: 64px;
+    border-top: 1px solid rgba(200,168,75,0.15);
+  }
+  .process-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 40px;
+  }
+  .process-step { position: relative; }
+  .process-step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; font-weight: 300; color: rgba(200,168,75,0.15);
+    line-height: 1; margin-bottom: 12px;
+  }
+  .process-step-name {
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold-deep); margin-bottom: 8px; font-weight: 300;
+  }
+  .process-step-desc {
+    font-size: 13px; line-height: 1.7; color: var(--muted); font-weight: 300;
+  }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--cream); }
+  .testimonial-card {
+    background: var(--white);
+    padding: 48px 52px;
+    border-left: 3px solid var(--gold);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.06);
+    max-width: 760px; margin: 0 auto;
+  }
+  .testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-style: italic; font-weight: 300;
+    line-height: 1.8; color: var(--text); margin-bottom: 28px;
+  }
+  .testimonial-quote::before {
+    content: '\201C';
+    font-size: 60px; color: rgba(200,168,75,0.2);
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 0; vertical-align: -0.4em;
+    margin-right: 4px;
+  }
+  .testimonial-name {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold-deep); font-weight: 300;
+  }
+  .testimonial-service {
+    font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 300;
+  }
+  .testimonials-more {
+    text-align: center; margin-top: 40px;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); font-style: italic;
+    font-family: 'Cormorant Garamond', serif; font-size: 16px;
+  }
+
+  /* ── PORTFOLIO ── */
+  #portfolio { background: var(--white); }
+  .portfolio-tabs {
+    display: flex; gap: 0; border-bottom: 1px solid rgba(200,168,75,0.2);
+    margin-bottom: 48px;
+  }
+  .ptab {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    padding: 14px 28px; cursor: pointer; color: var(--muted);
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: all 0.3s; font-weight: 300;
+    background: none; border-left: none; border-top: none; border-right: none;
+  }
+  .ptab.active { color: var(--gold-deep); border-bottom-color: var(--gold); }
+  .ptab:hover { color: var(--gold-deep); }
+  .portfolio-panel { display: none !important; }
+  .portfolio-panel.active { display: block !important; }
+  .portfolio-subcats {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px;
+  }
+  .subcat {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 6px 16px; border: 1px solid rgba(200,168,75,0.25);
+    color: var(--muted); cursor: pointer; transition: all 0.3s;
+    font-weight: 300;
+  }
+  .subcat.active, .subcat:hover {
+    border-color: var(--gold); color: var(--gold-deep);
+    background: rgba(200,168,75,0.04);
+  }
+  .portfolio-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+  }
+  .portfolio-item {
+    aspect-ratio: 1; background: var(--cream);
+    overflow: hidden; position: relative; cursor: pointer;
+  }
+  .portfolio-item-inner {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); transition: all 0.3s;
+  }
+  .portfolio-item:hover .portfolio-item-inner { background: rgba(200,168,75,0.08); }
+  /* Alternating placeholder tones */
+  .portfolio-item:nth-child(odd) { background: #EAE4DC; }
+  .portfolio-item:nth-child(even) { background: #E2DDD4; }
+
+  /* ── FAQ ── */
+  #faq { background: var(--navy); }
+  #faq .section-title { color: var(--white); }
+  #faq .section-label { color: var(--gold-light); }
+  #faq .gold-rule { background: linear-gradient(90deg, var(--gold-light), rgba(237,217,138,0.3)); }
+  .faq-list { max-width: 680px; }
+  .faq-item {
+    border-bottom: 1px solid rgba(250,250,248,0.08);
+    padding: 28px 0;
+  }
+  .faq-q {
+    font-size: 16px; font-weight: 300; color: var(--white);
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    gap: 20px; letter-spacing: 0.3px;
+  }
+  .faq-q:hover { color: var(--gold-light); }
+  .faq-toggle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; color: var(--gold); flex-shrink: 0;
+    transition: transform 0.3s; line-height: 1;
+  }
+  .faq-item.open .faq-toggle { transform: rotate(45deg); }
+  .faq-a {
+    font-size: 15px; line-height: 1.85; color: rgba(250,250,248,0.6);
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
+    font-weight: 300;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding-top: 16px; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--cream); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .contact-info p {
+    font-size: 15px; line-height: 1.9; color: var(--muted);
+    margin-bottom: 32px; font-weight: 300;
+  }
+  .contact-detail {
+    display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px;
+  }
+  .contact-detail a {
+    font-size: 13px; color: var(--text); text-decoration: none;
+    letter-spacing: 0.5px; transition: color 0.3s; font-weight: 300;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .contact-detail a:hover { color: var(--gold-deep); }
+  .contact-detail a span.label {
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); width: 72px; flex-shrink: 0;
+  }
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-field { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .form-field label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold-deep); font-weight: 300;
+  }
+  .form-field input, .form-field textarea, .form-field select {
+    background: var(--white); border: 1px solid rgba(200,168,75,0.2);
+    padding: 16px 18px; font-family: 'Jost', sans-serif;
+    font-size: 14px; color: var(--text); font-weight: 300;
+    outline: none; transition: border-color 0.3s; border-radius: 0;
+    appearance: none;
+  }
+  .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+    border-color: var(--gold);
+  }
+  .form-field textarea { height: 120px; resize: none; }
+  .btn-submit {
+    background: transparent; border: 1px solid var(--gold);
+    padding: 16px 40px; font-family: 'Jost', sans-serif;
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold-deep); cursor: pointer; transition: all 0.3s;
+    font-weight: 300; align-self: flex-start;
+  }
+  .btn-submit:hover { background: var(--gold); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy-deep);
+    padding: 48px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .footer-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #9A7218, #C8A84B, #EDD98A);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .footer-tagline {
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    color: #C8A84B; margin-top: 4px; font-weight: 300;
+  }
+  .footer-social { display: flex; gap: 20px; }
+  .footer-social a { color: rgba(250,250,248,0.4); transition: color 0.3s; }
+  .footer-social a:hover { opacity: 0.8; }
+  .footer-social svg { width: 18px; height: 18px; fill: currentColor; }
+  .footer-copy {
+    font-size: 10px; color: rgba(250,250,248,0.25); font-weight: 300; letter-spacing: 1px;
+  }
+
+  /* ── GOLD DIVIDER ── */
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.3;
+  }
+
+  /* ── SCROLL FADE ── */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+
+  /* ── HERO NAV BAR (under gallery) ── */
+  
+  
+  
+  
+  .hero-nav-bar svg { display: block; }
+
+  
+  
+  
+
+
+  /* ── SECTION VISIBILITY   hidden until nav clicked ── */
+  /* sections hidden via inline style */
+  section.section-visible {
+    display: block;
+  }
+  .gold-divider {
+    display: none;
+  }
+
+  .gold-divider.divider-visible {
+    display: block;
+  }
+
+
+  .hero-nav-bar a
+  
+
+
+  /* ── GALLERY WALL ── */
+  
+  
+  
+  
+  
+  /* Watercolor overlay */
+  
+  .gallery-img
+  .gallery-img
+  
+  /* Category label on hover */
+  
+  
+
+
+  /* ── CONTACT FORM PANEL ── */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .contact-form-panel {
+    border: 1px solid rgba(200,168,75,0.18);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--white);
+  }
+  .cfp-block {
+    padding: 12px 0;
+  }
+  .cfp-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,168,75,0.25), transparent);
+  }
+  .cfp-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    font-weight: 300;
+    margin-bottom: 10px;
+    font-family: 'Cinzel', serif;
+  }
+  .cfp-desc {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .cfp-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cfp-list li {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .cfp-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+  .cfp-btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 14px 32px;
+    border: 1px solid var(--gold);
+    color: var(--gold-deep);
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 300;
+    transition: all 0.3s;
+    font-family: 'Jost', sans-serif;
+  }
+  .cfp-btn:hover {
+    background: var(--gold);
+    color: var(--white);
+  }
+
+
+  /* ── HERO ── */
+  
+  
+  
+  
+
+
+  /* ══ HERO ══ */
+  #home {
+    width: 100%;
+    background: var(--white);
+  }
+
+  /* 1. Logo row */
+  .hero-logo-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0 16px;
+    margin: 0;
+  }
+
+  /* 2. Gallery */
+  
+
+  /* 3. Nav bar   navy background, gold font */
+  .hero-nav-row {
+    width: 100%;
+    background: var(--navy);
+    margin-top: 32px;
+    padding: 0;
+  }
+  .hero-nav-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 14px 24px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .hero-nav-links a {
+    text-decoration: none;
+    color: #C8A84B;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 300;
+    padding: 6px 18px;
+    font-family: 'Cinzel', serif;
+    transition: color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .hero-nav-links a:hover { color: #EDD98A; }
+  .hero-nav-links a.nav-active { color: #EDD98A; }
+  .hero-nav-links a + a {
+    border-left: 1px solid rgba(200,168,75,0.25);
+  }
+  
+  .hero-social-icons a {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  .hero-social-icons a:hover { opacity: 0.75; }
+  .hero-social-icons svg { width: 22px; height: 22px; fill: currentColor; }
+
+
+  .nav-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    color: #ffffff !important;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  .nav-social-link:hover { opacity: 0.7; }
+  .nav-social-link svg {
+    width: 13px;
+    height: 13px;
+    fill: currentColor;
+  }
+  .nav-social-link + a { border-left: none !important; }
+
+
+  /* ── GALLERY 2x2 ── */
+  .hero-gallery-row {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 16px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 360px 360px;
+    gap: 14px;
+  }
+  .gallery-img {
+    overflow: hidden;
+    position: relative;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 100%;
+  }
+  .gallery-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .gallery-img:hover img { transform: scale(1.04); }
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 24px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .gallery-img:hover .gallery-overlay {
+    opacity: 1;
+  }
+  .gallery-cat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+    transform: translateY(4px);
+    transition: transform 0.4s ease;
+  }
+  .gallery-img:hover .gallery-cat-label {
+    transform: translateY(0);
+  }
+  .cat-env::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(155,126,200,0.58) 0%,rgba(155,126,200,0.38) 45%,rgba(155,126,200,0.12) 100%); box-shadow:inset 0 0 60px rgba(155,126,200,0.3); opacity:0; transition:opacity 0.4s ease; pointer-events:none; }
+  .cat-env:hover::after { opacity: 1; }
+  .cat-strategy::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(61,122,92,0.58) 0%,rgba(61,122,92,0.38) 45%,rgba(61,122,92,0.12) 100%); box-shadow:inset 0 0 60px rgba(61,122,92,0.3); opacity:0; transition:opacity 0.4s ease; pointer-events:none; }
+  .cat-strategy:hover::after { opacity: 1; }
+  .cat-events::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(214,61,122,0.58) 0%,rgba(214,61,122,0.38) 45%,rgba(214,61,122,0.12) 100%); box-shadow:inset 0 0 60px rgba(214,61,122,0.3); opacity:0; transition:opacity 0.4s ease; pointer-events:none; }
+  .cat-events:hover::after { opacity: 1; }
+  .cat-travel::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(176,122,128,0.58) 0%,rgba(176,122,128,0.38) 45%,rgba(176,122,128,0.12) 100%); box-shadow:inset 0 0 60px rgba(176,122,128,0.3); opacity:0; transition:opacity 0.4s ease; pointer-events:none; }
+  .cat-travel:hover::after { opacity: 1; }
+
+
+  /* ── SERVICE CATEGORY COLORS   Option B ── */
+  .svc-env {
+    background: rgba(155,126,200,0.08) !important;
+    border: none !important;
+    border-left: 4px solid #9B7EC8 !important;
+    border-radius: 0;
+  }
+  .svc-env .service-number { color: #9B7EC8 !important; }
+  .svc-env .service-tag { border-color: rgba(155,126,200,0.4) !important; color: #9B7EC8 !important; }
+  .svc-env .service-includes li .price { color: #9B7EC8 !important; }
+  .svc-env::before { background: linear-gradient(180deg, #7B5EA7, #B8A0D4) !important; }
+
+  .svc-strategy {
+    background: rgba(61,122,92,0.08) !important;
+    border: none !important;
+    border-left: 4px solid #3D7A5C !important;
+    border-radius: 0;
+  }
+  .svc-strategy .service-number { color: #3D7A5C !important; }
+  .svc-strategy .service-tag { border-color: rgba(61,122,92,0.4) !important; color: #3D7A5C !important; }
+  .svc-strategy .service-includes li .price { color: #3D7A5C !important; }
+  .svc-strategy::before { background: linear-gradient(180deg, #3D7A5C, #7AB89A) !important; }
+
+  .svc-events {
+    background: rgba(214,61,122,0.08) !important;
+    border: none !important;
+    border-left: 4px solid #D63D7A !important;
+    border-radius: 0;
+  }
+  .svc-events .service-number { color: #D63D7A !important; }
+  .svc-events .service-tag { border-color: rgba(214,61,122,0.4) !important; color: #D63D7A !important; }
+  .svc-events .service-includes li .price { color: #D63D7A !important; }
+  .svc-events::before { background: linear-gradient(180deg, #D63D7A, #F0A0C0) !important; }
+
+  .svc-travel {
+    background: rgba(176,122,128,0.08) !important;
+    border: none !important;
+    border-left: 4px solid #B07A80 !important;
+    border-radius: 0;
+  }
+  .svc-travel .service-number { color: #B07A80 !important; }
+  .svc-travel .service-tag { border-color: rgba(176,122,128,0.4) !important; color: #B07A80 !important; }
+  .svc-travel .service-includes li .price { color: #B07A80 !important; }
+  .svc-travel::before { background: linear-gradient(180deg, #B07A80, #D4A8AC) !important; }
+
+  /* Section label colors per category */
+  .label-env { color: #9B7EC8 !important; }
+  .label-strategy { color: #3D7A5C !important; }
+  .label-events { color: #D63D7A !important; }
+  .label-travel { color: #B07A80 !important; }
+
+
+  
+
+
+  /* ── SERVICE TIER DETAILS ── */
+  .svc-offerings {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .svc-tier {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .svc-tier:last-child { border-bottom: none; }
+  .svc-tier-name {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    font-family: 'Jost', sans-serif;
+  }
+  .svc-tier-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .svc-process {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+  }
+  .svc-process-title {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-weight: 300;
+  }
+  .svc-steps {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .svc-step {
+    font-size: 11px;
+    color: var(--text);
+    font-weight: 300;
+    font-family: 'Jost', sans-serif;
+  }
+  .svc-arrow {
+    font-size: 10px;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+
+
+  /* ── SERVICE TIER ACCORDION ── */
+  .svc-tier {
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .svc-tier:last-child { border-bottom: none; }
+  .svc-tier-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    cursor: pointer;
+    gap: 8px;
+    user-select: none;
+  }
+  .svc-tier-header:hover .svc-tier-name { opacity: 0.75; }
+  .svc-tier-name {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    flex: 1;
+  }
+  .svc-toggle {
+    font-size: 18px;
+    color: var(--gold);
+    font-weight: 300;
+    line-height: 1;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .svc-tier.open .svc-toggle { transform: rotate(45deg); }
+  .svc-tier-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.3s;
+    padding: 0 0 0;
+  }
+  .svc-tier.open .svc-tier-body {
+    max-height: 300px;
+    padding: 0 0 12px;
+  }
+  .svc-tier-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 6px;
+  }
+  .svc-includes-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .svc-includes-list li {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .svc-includes-list li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+
+  
+  
+  
+
+
+  .pill-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+    align-items: center;
+    width: 100%;
+  }
+  .svc-pill {
+    padding: 12px 8px;
+    border: 1.5px solid;
+    border-radius: 24px;
+    font-size: 13px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    background: transparent;
+    text-align: center;
+    width: 100%;
+    display: block;
+  }
+  .svc-pill.selected {
+    color: #ffffff !important;
+  }
+  .svc-pill:hover { opacity: 0.8; }
+
+
+  /* ══════════════════════════════════════════
+     TABLET (768px - 1023px)
+  ══════════════════════════════════════════ */
+  @media (max-width: 1023px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .process-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    div[style*="grid-template-columns:404px"] ,
+    div[style*="grid-template-columns:450px"] ,
+    div[style*="grid-template-columns:500px"] {
+      grid-template-columns: 1fr 1fr !important;
+      max-width: 100% !important;
+    }
+  }
+
+  /* ══════════════════════════════════════════
+     MOBILE (under 768px)
+  ══════════════════════════════════════════ */
+  @media (max-width: 767px) {
+
+    /* ── Body + Section ── */
+    section { padding: 24px 20px; }
+    .section-inner { padding: 0; }
+    .section-title { font-size: 26px !important; }
+
+    /* ── Nav bar ── */
+    div[style*="background:#1B2A4A"] nav {
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+      gap: 0 !important;
+    }
+    div[style*="background:#1B2A4A"] nav a {
+      font-size: 10px !important;
+      padding: 8px 10px !important;
+      letter-spacing: 1.5px !important;
+      border-right: none !important;
+      border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    }
+
+    /* ── Logo ── */
+    div[style*="padding:8px 0 6px"] img {
+      width: 260px !important;
+    }
+
+    /* ── Gallery — single column on mobile ── */
+    div[style*="grid-template-columns:450px"],
+    div[style*="grid-template-columns:404px"],
+    div[style*="grid-template-columns:500px"] {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto !important;
+      max-width: 100% !important;
+      padding: 8px !important;
+    }
+    div[style*="grid-column:1"],
+    div[style*="grid-column:2"] {
+      grid-column: 1 !important;
+      grid-row: auto !important;
+    }
+
+    /* ── Services ── */
+    .services-grid {
+      grid-template-columns: 1fr !important;
+      gap: 16px;
+    }
+    .service-card {
+      padding: 28px 24px;
+    }
+    .process-grid {
+      grid-template-columns: 1fr !important;
+      gap: 20px;
+    }
+
+    /* ── About ── */
+    .about-grid {
+      grid-template-columns: 1fr !important;
+      gap: 28px;
+    }
+    .about-story p {
+      font-size: 14px !important;
+    }
+    .about-manifesto {
+      border-left: none !important;
+      padding-left: 0 !important;
+      border-top: 1px solid rgba(200,168,75,0.2);
+      padding-top: 24px;
+    }
+
+    /* ── Testimonials ── */
+    .testimonial-card {
+      padding: 28px 24px;
+    }
+    .testimonial-quote {
+      font-size: 16px !important;
+    }
+
+    /* ── Portfolio ── */
+    .portfolio-tabs {
+      flex-wrap: wrap;
+    }
+    .ptab {
+      font-size: 9px !important;
+      padding: 10px 14px !important;
+    }
+    .portfolio-grid {
+      grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* ── FAQ ── */
+    .faq-q {
+      font-size: 13px !important;
+    }
+
+    /* ── Contact ── */
+    .contact-grid {
+      grid-template-columns: 1fr !important;
+      gap: 32px;
+    }
+    .contact-form-panel {
+      padding: 16px !important;
+    }
+
+    /* ── Pills ── */
+    .pill-group > div[style*="grid-template-columns:1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+    .svc-pill {
+      font-size: 13px !important;
+      padding: 12px !important;
+    }
+
+    /* ── Footer ── */
+    footer {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 20px !important;
+      padding: 32px 24px !important;
+    }
+    #book-me-cta { align-self: center !important; }
+    footer > div:last-child {
+      align-items: flex-start !important;
+    }
+    footer > div > div:first-child {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 8px !important;
+    }
+
+    /* ── Manifesto section ── */
+    div[style*="margin-bottom:32px;text-align:center"] p,
+    div[style*="margin-bottom:48px;text-align:center"] p {
+      font-size: 15px !important;
+    }
+
+    /* ── Quote image ── */
+    img[alt="Teacher quote from kindergarten"] {
+      max-width: 100% !important;
+    }
+    img[alt="Christine as a child"] {
+      max-width: 220px !important;
+    }
+  }
+
+
+  /* ── STICKY NAV — desktop ── */
+  @media (min-width: 768px) {
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      width: 100%;
+    }
+  }
+
+  /* ── FLOATING SCROLL-TO-TOP — mobile ── */
+  #scrollTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 28px;
+    right: 24px;
+    z-index: 1000;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    font-size: 18px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  #scrollTopBtn:hover {
+    background: var(--gold);
+    color: var(--white);
+  }
+  #scrollTopBtn.visible {
+    display: flex;
+  }
+  /* Only show on mobile */
+  @media (min-width: 768px) {
+    #scrollTopBtn { display: none !important; }
+  }
+
+
+  .sticky-nav {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+  }
+  .sticky-nav > div {
+    pointer-events: auto !important;
+  }
+  .sticky-nav nav a,
+  .sticky-nav a {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 9999 !important;
+  }
+
+
+  /* ── CURTAIN SLIDER ── */
+  .curtain-wrap {
+    width: 100%;
+    max-width: 100%;
+    height: 420px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    cursor: ew-resize;
+    user-select: none;
+    touch-action: none;
+  }
+  .curtain-before-panel {
+    position: relative;
+    width: 100%;
+  }
+  .curtain-after-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    overflow: hidden;
+  }
+  .curtain-after-panel img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 420px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .curtain-handle-line {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    transform: translateX(50%);
+    width: 3px;
+    height: 100%;
+    background: #C8A84B;
+    z-index: 10;
+    cursor: ew-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .curtain-handle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #C8A84B;
+    color: #1B2A4A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    letter-spacing: -1px;
+  }
+  .curtain-badge {
+    position: absolute;
+    top: 16px;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(27,42,74,0.75);
+    padding: 5px 12px;
+    border-radius: 2px;
+    z-index: 8;
+  }
+  .c-badge-left { left: 16px; }
+  .c-badge-right { right: 16px; }
+
+
+  .portfolio-item {
+    position: relative;
+    overflow: hidden;
+  }
+  .port-hover-label {
+    position: absolute;
+    inset: 0;
+    background: rgba(27,42,74,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+  .portfolio-item:hover .port-hover-label {
+    opacity: 1;
+  }
+
+
+  /* ── PORTFOLIO IMAGE PURPLE OVERLAY ── */
+  #panel-space .portfolio-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center,
+      rgba(155,126,200,0.55) 0%,
+      rgba(155,126,200,0.35) 45%,
+      rgba(155,126,200,0.10) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  #panel-space .portfolio-item:hover::after { opacity: 1; }
+  #panel-space .curtain-wrap .curtain-before-panel::after,
+  #panel-space .curtain-wrap .curtain-after-panel::after { display: none; }
+
+
+  #panel-events .portfolio-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center,
+      rgba(214,61,122,0.55) 0%,
+      rgba(214,61,122,0.35) 45%,
+      rgba(214,61,122,0.10) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  #panel-events .portfolio-item:hover::after { opacity: 1; }
+
+
+  /* ── LIGHTBOX ── */
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+  }
+  .lightbox-overlay.open {
+    display: flex;
+  }
+  .lightbox-overlay img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+    cursor: default;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    color: #ffffff;
+    font-size: 36px;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    z-index: 100000;
+  }
+  .lightbox-close:hover { opacity: 1; }
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
+    font-size: 32px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    padding: 20px;
+    user-select: none;
+  }
+  .lightbox-nav:hover { opacity: 1; }
+  .lightbox-prev { left: 16px; }
+  .lightbox-next { right: 16px; }
+  .lightbox-caption {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #C8A84B;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .portfolio-item { cursor: zoom-in; }
+
+
+  /* ── CAROUSEL MOBILE ── */
+  @media (max-width: 767px) {
+    /* Make nav arrows bigger and easier to tap */
+    button[onclick^="changeSlide"] {
+      width: 48px !important;
+      height: 48px !important;
+      font-size: 28px !important;
+      left: 4px !important;
+      right: 4px !important;
+    }
+    /* Make curtain handle bigger for touch */
+    .ba-slide [id^="curtainHandle_"] > div {
+      width: 48px !important;
+      height: 48px !important;
+      font-size: 14px !important;
+    }
+    /* Dots bigger for touch */
+    #ba-dots span {
+      width: 12px !important;
+      height: 12px !important;
+    }
+    /* Slider full width on mobile */
+    .ba-slide [id^="curtain_"] {
+      max-width: 100% !important;
+    }
+  }
+
+
+  /* ── Floating "Book Me" CTA — present on every tab ── */
+  #book-me-cta {
+    display: inline-block;
+    flex: 0 0 auto;
+    margin: 0;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #9A7218, #C8A84B 45%, #EDD98A 70%, #B8922A);
+    color: #1B2A4A;
+    font-family: 'Cinzel', serif;
+    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+    padding: 15px 34px;
+    border: none; border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 0 6px 26px rgba(0,0,0,0.28);
+  }
+  #book-me-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(27,42,74,0.36);
+  }
+  @media (max-width: 768px) {
+    #book-me-cta { padding: 13px 26px; font-size: 11px; letter-spacing: 2px; }
+    #home-gallery {
+      grid-template-columns: 1fr 1fr !important;
+      grid-template-rows: auto !important;
+      max-width: 100% !important;
+    }
+    #home-gallery .gallery-img { aspect-ratio: 3/4; }
+  }
+  @media (max-width: 480px) {
+    #home-gallery { grid-template-columns: 1fr !important; }
+  }
+
+  /* Safety net: keep secondary sections hidden until JS controls them */
+  section#about, section#environment, section#experiences,
+  section#testimonials, section#faq, section#contact { display: none; }
+  section#home { display: block; }
+</style>
+</head>
+<body>
+
+
+<!-- LOGO — sits above the fixed nav -->
+<div id="site-logo" style="width:100%;display:flex;justify-content:center;align-items:center;padding:10px 0 8px;margin:0;background:#FAFAF8;">
+  <img src="images/img_dd4d187cec.png" alt="The Oasis Architect" style="width:400px;max-width:85%;height:auto;display:block;"/>
+</div>
+<div class="sticky-nav" style="width:100%;background:#1B2A4A;margin:0;padding:0;">
+    <div style="max-width:1040px;margin:0 auto;padding:14px 24px;display:flex;flex-direction:column;align-items:center;gap:0;">
+      <nav style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;width:100%;">
+        <a href="javascript:void(0)" onclick="showHome()" style="color:#ffffff;font-size:13px;letter-spacing:3px;text-transform:uppercase;font-family:Cinzel,serif;font-weight:300;padding:10px 16px;text-decoration:none;border-right:1px solid rgba(255,255,255,0.2);">Home</a>
+        <a href="javascript:void(0)" onclick="showSection('environment')" style="color:#ffffff;font-size:13px;letter-spacing:3px;text-transform:uppercase;font-family:Cinzel,serif;font-weight:300;padding:10px 16px;text-decoration:none;border-right:1px solid rgba(255,255,255,0.2);">Environment + Spaces</a>
+        <a href="javascript:void(0)" onclick="showSection('experiences')" style="color:#ffffff;font-size:13px;letter-spacing:3px;text-transform:uppercase;font-family:Cinzel,serif;font-weight:300;padding:10px 16px;text-decoration:none;border-right:1px solid rgba(255,255,255,0.2);">Experiences + Events</a>
+        <a href="javascript:void(0)" onclick="showSection('testimonials')" style="color:#ffffff;font-size:13px;letter-spacing:3px;text-transform:uppercase;font-family:Cinzel,serif;font-weight:300;padding:10px 16px;text-decoration:none;border-right:1px solid rgba(255,255,255,0.2);">Testimonials</a>
+        <a href="javascript:void(0)" onclick="showSection('about')" style="color:#ffffff;font-size:13px;letter-spacing:3px;text-transform:uppercase;font-family:Cinzel,serif;font-weight:300;padding:10px 16px;text-decoration:none;border-right:1px solid rgba(255,255,255,0.2);">About</a>
+        
+        <a href="javascript:void(0)" onclick="showSection('faq')" style="color:#ffffff;font-size:13px;letter-spacing:3px;text-transform:uppercase;font-family:Cinzel,serif;font-weight:300;padding:10px 16px;text-decoration:none;border-right:1px solid rgba(255,255,255,0.2);">FAQ</a>
+        <a href="javascript:void(0)" onclick="showSection('contact')" style="color:#ffffff;font-size:13px;letter-spacing:3px;text-transform:uppercase;font-family:Cinzel,serif;font-weight:300;padding:10px 16px;text-decoration:none;border-right:1px solid rgba(255,255,255,0.2);">Contact</a>
+        <a href="shop/index.html" style="color:#ffffff;font-size:13px;letter-spacing:3px;text-transform:uppercase;font-family:Cinzel,serif;font-weight:300;padding:10px 16px;text-decoration:none;border-right:1px solid rgba(255,255,255,0.2);">Shop</a>
+        <a href="https://instagram.com/oasisarchitect" target="_blank" rel="noopener noreferrer" onclick="window.open('https://instagram.com/oasisarchitect','_blank');return false;" style="color:#ffffff;padding:10px 14px;text-decoration:none;display:flex;align-items:center;cursor:pointer;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://pin.it/1IJg29bXF" target="_blank" rel="noopener noreferrer" onclick="window.open('https://pin.it/1IJg29bXF','_blank');return false;" style="color:#ffffff;padding:10px 14px;text-decoration:none;display:flex;align-items:center;cursor:pointer;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg></a><a href="https://www.tiktok.com/@oasisarchitect?_r=1&amp;_t=ZP-98GGvinj3uQ" id="tiktok-nav" target="_blank" rel="noopener noreferrer" style="color:#ffffff;padding:10px 14px;text-decoration:none;display:flex;align-items:center;cursor:pointer;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg></a>
+        
+      </nav>
+    </div>
+  </div>
+
+
+
+
+<!-- ══════════════════════════════════════════════
+     HERO   Gallery wall + logo overlay
+══════════════════════════════════════════════ -->
+<section id="home" style="display:block;padding:0;margin:0;">
+
+  <!-- LOGO -->
+  
+
+  <!-- TAGLINE -->
+  <p style="text-align:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;letter-spacing:1px;color:#1B2A4A;margin:6px auto 14px;padding:0 20px;font-weight:500;">Curated Spaces, Experiences <span style="color:#C8A84B;">+</span> Systems</p>
+
+  <!-- GALLERY   2x2 clickable grid -->
+  <div id="home-gallery" style="width:100%;max-width:914px;margin:0 auto;padding:14px 16px;display:grid;grid-template-columns:450px 450px;grid-template-rows:480px;gap:14px;">
+
+    <!-- TOP LEFT: Environment + Spaces   jeans, shifted to show stack top-down -->
+    <div class="gallery-img cat-env" style="grid-column:1;grid-row:1;cursor:pointer;" onclick="showSection('environment')" title="View Environment + Spaces services">
+      <img src="images/img_30c759ec32.jpg" alt="Environment and Spaces" style="width:100%;height:100%;object-fit:cover;object-position:0% 40%;display:block;transition:transform 0.5s ease;"/>
+      <div class="gallery-overlay">
+        <span class="gallery-cat-label">Environment + Spaces</span>
+        <span style="display:block;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-top:4px;font-family:Jost,sans-serif;">View Services →</span>
+      </div>
+    </div>
+
+    <!-- TOP RIGHT: Events   bowtie/ring image -->
+    <div class="gallery-img cat-events" style="grid-column:2;grid-row:1;cursor:pointer;" onclick="showSection('experiences')" title="View Experiences + Events services">
+      <img src="images/img_64b31c0335.jpg" alt="Experiences and Events" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;transition:transform 0.5s ease;"/>
+      <div class="gallery-overlay">
+        <span class="gallery-cat-label">Experiences + Events</span>
+        <span style="display:block;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-top:4px;font-family:Jost,sans-serif;">View Services →</span>
+      </div>
+    </div>
+
+
+  </div>
+
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ══════════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════════ -->
+<section id="about" style="display:none;padding-bottom:60px;">
+  <div class="section-inner">
+    <p class="section-label fade-up">Our Story</p>
+    <h2 class="section-title fade-up">Meaning does not happen by accident.</h2>
+    <div class="gold-rule fade-up"></div>
+
+    <!-- TOP: Full-width manifesto   centered, bold -->
+    <div class="fade-up" style="margin-bottom:32px;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:normal;font-weight:600;color:rgba(250,250,248,0.95);line-height:1.9;margin-bottom:28px;">
+        To curate a home, an event, or an experience for someone else is to shape memory in real time. It is deciding what will be felt, what will be remembered, and what will stay long after the moment ends. Every detail matters. Not because it looks good, but because it creates an emotional structure that people move through.
+      </p>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:normal;font-weight:600;color:#C8A84B;">To curate is to care.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:normal;font-weight:600;color:#C8A84B;">To organize is to honor.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:normal;font-weight:600;color:#C8A84B;">To make space is to make meaning possible.</p>
+      </div>
+      <div style="width:48px;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold-light));margin:24px auto 0;"></div>
+    </div>
+
+    <!-- MIDDLE: Two columns   photo left, story right -->
+    <div class="about-grid fade-up" style="margin-bottom:24px;">
+
+      <!-- LEFT: child photo only -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+        <img src="images/img_8fa65a3913.jpg"
+             alt="Christine as a child"
+             style="width:100%;max-width:280px;border-radius:2px;box-shadow:0 8px 32px rgba(0,0,0,0.3);display:block;margin:0 auto;"/>
+      </div>
+
+      <!-- RIGHT: personal story -->
+      <div class="about-story">
+        <p>It started in kindergarten. Even then, it was something innate within me.</p>
+        <p>Over the years, I became the unofficial director of operations for my friends and family   hosting birthdays, planning trips, organizing homes as people stepped into new chapters. I was always the one they turned to.</p>
+        <p>Professionally, I built a career in operations and strategy, working across finance and systems implementation. I have always been drawn to bringing structure to complexity and creating systems that allow things to flow with ease.</p>
+        <p>Now, I am stepping fully into what I do best and what I genuinely love.</p>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM: Quote image + caption   full width, centered, full visibility -->
+    <div class="fade-up" style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
+      <img src="images/img_371a6a0cef.jpg"
+           alt="Teacher quote from kindergarten"
+           style="width:100%;max-width:680px;display:block;margin:0 auto;"/>
+      <p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,250,248,0.35);text-align:center;font-weight:300;">May 1995 · Kindergarten Report</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ══════════════════════════════════════════════
+     SERVICES
+══════════════════════════════════════════════ -->
+<section id="environment" style="display:none;">
+  <div class="section-inner">
+    <p class="section-label fade-up">Environment + Spaces</p>
+    <h2 class="section-title fade-up">A home where everything<br>has a place.</h2>
+    <div class="gold-rule fade-up"></div>
+
+    <div class="services-grid fade-up" style="margin-bottom:50px;">
+      <!-- 01 ENVIRONMENT + SPACE -->
+      <div class="service-card svc-env">
+        <p class="service-number">01</p>
+        <h3 class="service-name">Environment + Space</h3>
+        <p class="service-desc">A home where everything has a place is not about perfection. It is about clarity. When a space is settled, the mind can settle.</p>
+        <div class="svc-offerings">
+
+          <div class="svc-tier">
+            <div class="svc-tier-header" onclick="toggleTier(this)">
+              <span class="svc-tier-name">Intro Call</span>
+              <span class="price">Complimentary</span>
+              <span class="svc-toggle">+</span>
+            </div>
+            <div class="svc-tier-body">
+              <p class="svc-tier-desc">15 to 20 minutes, virtual. A brief conversation to understand your space, priorities, and how we can work together. Please provide photos or agree to a video call.</p>
+            </div>
+          </div>
+
+          <div class="svc-tier">
+            <div class="svc-tier-header" onclick="toggleTier(this)">
+              <span class="svc-tier-name">In-Home Organizing</span>
+              <span class="price">$100/hr · 3hr min</span>
+              <span class="svc-toggle">+</span>
+            </div>
+            <div class="svc-tier-body">
+              <p class="svc-tier-desc">Hands-on organizing session including:</p>
+              <ul class="svc-includes-list">
+                <li>Hands-on organizing</li>
+                <li>Light system setup</li>
+                <li>Guidance and decision support throughout</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="svc-tier">
+            <div class="svc-tier-header" onclick="toggleTier(this)">
+              <span class="svc-tier-name">Custom Project Planning</span>
+              <span class="price">$500 to $2,000+</span>
+              <span class="svc-toggle">+</span>
+            </div>
+            <div class="svc-tier-body">
+              <p class="svc-tier-desc">For larger or multi-space projects. Includes:</p>
+              <ul class="svc-includes-list">
+                <li>Estimated total hours</li>
+                <li>Session structure and timeline</li>
+                <li>Product sourcing and recommendations</li>
+                <li>Space-by-space approach</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div class="svc-process">
+          <p class="svc-process-title">The Process</p>
+          <div class="svc-steps">
+            <span class="svc-step">Walkthrough</span><span class="svc-arrow">&#8594;</span>
+            <span class="svc-step">Sort + Edit</span><span class="svc-arrow">&#8594;</span>
+            <span class="svc-step">Design + Strategize</span><span class="svc-arrow">&#8594;</span>
+            <span class="svc-step">Source</span><span class="svc-arrow">&#8594;</span>
+            <span class="svc-step">Implement</span><span class="svc-arrow">&#8594;</span>
+            <span class="svc-step">Grand Reveal</span>
+          </div>
+        </div>
+        <span class="service-tag">Organizing · Home Resets · Decluttering</span>
+      </div>
+
+      
+    </div>
+
+    <p class="section-label fade-up" style="margin-top:10px;">Selected Work</p>
+    <div class="gold-rule fade-up"></div>
+    <div class="portfolio-panel active" id="panel-space">
+
+      <!-- BEFORE & AFTER CAROUSEL -->
+      <div style="margin-bottom:40px;">
+        <div style="display:flex;justify-content:center;gap:8px;margin-bottom:16px;" id="ba-dots"><span onclick="goToSlide(0)" style="width:8px;height:8px;border-radius:50%;background:#C8A84B;cursor:pointer;transition:background 0.3s;display:inline-block;" id="dot_0"></span><span onclick="goToSlide(1)" style="width:8px;height:8px;border-radius:50%;background:rgba(200,168,75,0.3);cursor:pointer;transition:background 0.3s;display:inline-block;" id="dot_1"></span><span onclick="goToSlide(2)" style="width:8px;height:8px;border-radius:50%;background:rgba(200,168,75,0.3);cursor:pointer;transition:background 0.3s;display:inline-block;" id="dot_2"></span><span onclick="goToSlide(3)" style="width:8px;height:8px;border-radius:50%;background:rgba(200,168,75,0.3);cursor:pointer;transition:background 0.3s;display:inline-block;" id="dot_3"></span><span onclick="goToSlide(4)" style="width:8px;height:8px;border-radius:50%;background:rgba(200,168,75,0.3);cursor:pointer;transition:background 0.3s;display:inline-block;" id="dot_4"></span><span onclick="goToSlide(5)" style="width:8px;height:8px;border-radius:50%;background:rgba(200,168,75,0.3);cursor:pointer;transition:background 0.3s;display:inline-block;" id="dot_5"></span><span onclick="goToSlide(6)" style="width:8px;height:8px;border-radius:50%;background:rgba(200,168,75,0.3);cursor:pointer;transition:background 0.3s;display:inline-block;" id="dot_6"></span><span onclick="goToSlide(7)" style="width:8px;height:8px;border-radius:50%;background:rgba(200,168,75,0.3);cursor:pointer;transition:background 0.3s;display:inline-block;" id="dot_7"></span></div>
+        <p style="text-align:center;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;font-weight:300;">Drag to reveal · Use arrows to browse</p>
+        <div style="position:relative;">
+
+      <div class="ba-slide" style="display:flex;flex-direction:column;align-items:center;">
+        <div id="curtain_0" style="position:relative;width:100%;max-width:500px;margin:0 auto;aspect-ratio:3/4;overflow:hidden;border-radius:3px;box-shadow:0 8px 40px rgba(0,0,0,0.12);cursor:ew-resize;user-select:none;touch-action:none;">
+          <div style="position:relative;width:100%;height:100%;">
+            <img src="images/img_675786d911.jpg" alt="Before" style="width:100%;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;left:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">Before</span>
+          </div>
+          <div id="curtainAfter_0" style="position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden;">
+            <img src="images/img_b93c176060.jpg" alt="After" style="position:absolute;top:0;right:0;width:500px;max-width:none;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">After</span>
+          </div>
+          <div id="curtainHandle_0" style="position:absolute;top:0;right:50%;transform:translateX(50%);width:3px;height:100%;background:#C8A84B;z-index:10;cursor:ew-resize;display:flex;align-items:center;justify-content:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:#C8A84B;color:#1B2A4A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.2);">&#9668;&#9658;</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-slide" style="display:none;flex-direction:column;align-items:center;">
+        <div id="curtain_1" style="position:relative;width:100%;max-width:500px;margin:0 auto;aspect-ratio:3/4;overflow:hidden;border-radius:3px;box-shadow:0 8px 40px rgba(0,0,0,0.12);cursor:ew-resize;user-select:none;touch-action:none;">
+          <div style="position:relative;width:100%;height:100%;">
+            <img src="images/img_441d2876c5.jpg" alt="Before" style="width:100%;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;left:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">Before</span>
+          </div>
+          <div id="curtainAfter_1" style="position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden;">
+            <img src="images/img_7b42aae0d3.jpg" alt="After" style="position:absolute;top:0;right:0;width:500px;max-width:none;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">After</span>
+          </div>
+          <div id="curtainHandle_1" style="position:absolute;top:0;right:50%;transform:translateX(50%);width:3px;height:100%;background:#C8A84B;z-index:10;cursor:ew-resize;display:flex;align-items:center;justify-content:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:#C8A84B;color:#1B2A4A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.2);">&#9668;&#9658;</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-slide" style="display:none;flex-direction:column;align-items:center;">
+        <div id="curtain_2" style="position:relative;width:100%;max-width:500px;margin:0 auto;aspect-ratio:3/4;overflow:hidden;border-radius:3px;box-shadow:0 8px 40px rgba(0,0,0,0.12);cursor:ew-resize;user-select:none;touch-action:none;">
+          <div style="position:relative;width:100%;height:100%;">
+            <img src="images/img_31136a173b.jpg" alt="Before" style="width:100%;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;left:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">Before</span>
+          </div>
+          <div id="curtainAfter_2" style="position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden;">
+            <img src="images/img_ca42e3c2b4.jpg" alt="After" style="position:absolute;top:0;right:0;width:500px;max-width:none;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">After</span>
+          </div>
+          <div id="curtainHandle_2" style="position:absolute;top:0;right:50%;transform:translateX(50%);width:3px;height:100%;background:#C8A84B;z-index:10;cursor:ew-resize;display:flex;align-items:center;justify-content:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:#C8A84B;color:#1B2A4A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.2);">&#9668;&#9658;</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-slide" style="display:none;flex-direction:column;align-items:center;">
+        <div id="curtain_3" style="position:relative;width:100%;max-width:500px;margin:0 auto;aspect-ratio:3/4;overflow:hidden;border-radius:3px;box-shadow:0 8px 40px rgba(0,0,0,0.12);cursor:ew-resize;user-select:none;touch-action:none;">
+          <div style="position:relative;width:100%;height:100%;">
+            <img src="images/img_7409720c5a.jpg" alt="Before" style="width:100%;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;left:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">Before</span>
+          </div>
+          <div id="curtainAfter_3" style="position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden;">
+            <img src="images/img_4503f08bf9.jpg" alt="After" style="position:absolute;top:0;right:0;width:500px;max-width:none;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">After</span>
+          </div>
+          <div id="curtainHandle_3" style="position:absolute;top:0;right:50%;transform:translateX(50%);width:3px;height:100%;background:#C8A84B;z-index:10;cursor:ew-resize;display:flex;align-items:center;justify-content:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:#C8A84B;color:#1B2A4A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.2);">&#9668;&#9658;</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-slide" style="display:none;flex-direction:column;align-items:center;">
+        <div id="curtain_4" style="position:relative;width:100%;max-width:500px;margin:0 auto;aspect-ratio:3/4;overflow:hidden;border-radius:3px;box-shadow:0 8px 40px rgba(0,0,0,0.12);cursor:ew-resize;user-select:none;touch-action:none;">
+          <div style="position:relative;width:100%;height:100%;">
+            <img src="images/img_5be97d8f11.jpg" alt="Before" style="width:100%;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;left:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">Before</span>
+          </div>
+          <div id="curtainAfter_4" style="position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden;">
+            <img src="images/img_12803bd045.jpg" alt="After" style="position:absolute;top:0;right:0;width:500px;max-width:none;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">After</span>
+          </div>
+          <div id="curtainHandle_4" style="position:absolute;top:0;right:50%;transform:translateX(50%);width:3px;height:100%;background:#C8A84B;z-index:10;cursor:ew-resize;display:flex;align-items:center;justify-content:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:#C8A84B;color:#1B2A4A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.2);">&#9668;&#9658;</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-slide" style="display:none;flex-direction:column;align-items:center;">
+        <div id="curtain_5" style="position:relative;width:100%;max-width:500px;margin:0 auto;aspect-ratio:3/4;overflow:hidden;border-radius:3px;box-shadow:0 8px 40px rgba(0,0,0,0.12);cursor:ew-resize;user-select:none;touch-action:none;">
+          <div style="position:relative;width:100%;height:100%;">
+            <img src="images/img_9b31aa0d13.jpg" alt="Before" style="width:100%;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;left:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">Before</span>
+          </div>
+          <div id="curtainAfter_5" style="position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden;">
+            <img src="images/img_cecd8cc9eb.jpg" alt="After" style="position:absolute;top:0;right:0;width:500px;max-width:none;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">After</span>
+          </div>
+          <div id="curtainHandle_5" style="position:absolute;top:0;right:50%;transform:translateX(50%);width:3px;height:100%;background:#C8A84B;z-index:10;cursor:ew-resize;display:flex;align-items:center;justify-content:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:#C8A84B;color:#1B2A4A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.2);">&#9668;&#9658;</div>
+          </div>
+        </div>
+      </div>
+          <button onclick="changeSlide(-1)" style="position:absolute;left:0;top:50%;transform:translateY(-50%);background:rgba(27,42,74,0.7);border:none;color:#C8A84B;font-size:24px;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:20;display:flex;align-items:center;justify-content:center;">&#8249;</button>
+          <button onclick="changeSlide(1)" style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:rgba(27,42,74,0.7);border:none;color:#C8A84B;font-size:24px;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:20;display:flex;align-items:center;justify-content:center;">&#8250;</button>
+        </div>
+      </div>
+
+<div class="ba-slide" style="display:none;flex-direction:column;align-items:center;">
+        <div id="curtain_6" style="position:relative;width:100%;max-width:500px;margin:0 auto;aspect-ratio:3/4;overflow:hidden;border-radius:3px;box-shadow:0 8px 40px rgba(0,0,0,0.12);cursor:ew-resize;user-select:none;touch-action:none;">
+          <div style="position:relative;width:100%;height:100%;">
+            <img src="images/img_0d7f65297d.jpg" alt="Before" style="width:100%;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;left:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">Before</span>
+          </div>
+          <div id="curtainAfter_6" style="position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden;">
+            <img src="images/img_78f38d74a2.jpg" alt="After" style="position:absolute;top:0;right:0;width:500px;max-width:none;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">After</span>
+          </div>
+          <div id="curtainHandle_6" style="position:absolute;top:0;right:50%;transform:translateX(50%);width:3px;height:100%;background:#C8A84B;z-index:10;cursor:ew-resize;display:flex;align-items:center;justify-content:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:#C8A84B;color:#1B2A4A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.2);">&#9668;&#9658;</div>
+          </div>
+        </div>
+      </div>
+
+<div class="ba-slide" style="display:none;flex-direction:column;align-items:center;">
+        <div id="curtain_7" style="position:relative;width:100%;max-width:500px;margin:0 auto;aspect-ratio:3/4;overflow:hidden;border-radius:3px;box-shadow:0 8px 40px rgba(0,0,0,0.12);cursor:ew-resize;user-select:none;touch-action:none;">
+          <div style="position:relative;width:100%;height:100%;">
+            <img src="images/img_30ecae371f.jpg" alt="Before" style="width:100%;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;left:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">Before</span>
+          </div>
+          <div id="curtainAfter_7" style="position:absolute;top:0;right:0;width:50%;height:100%;overflow:hidden;">
+            <img src="images/img_4e70f8ff56.jpg" alt="After" style="position:absolute;top:0;right:0;width:500px;max-width:none;height:100%;object-fit:contain;background:#F5F1EA;display:block;"/>
+            <span style="position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#fff;background:rgba(27,42,74,0.75);padding:5px 12px;border-radius:2px;z-index:3;">After</span>
+          </div>
+          <div id="curtainHandle_7" style="position:absolute;top:0;right:50%;transform:translateX(50%);width:3px;height:100%;background:#C8A84B;z-index:10;cursor:ew-resize;display:flex;align-items:center;justify-content:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:#C8A84B;color:#1B2A4A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.2);">&#9668;&#9658;</div>
+          </div>
+        </div>
+      </div>
+
+            
+      <!-- PORTFOLIO GRID -->
+      <div class="portfolio-grid">
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_0d98ba31cd.jpg" alt="Closet" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Closet</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_57ae29fece.jpg" alt="Kitchen" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Kitchen</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_f064430c7d.jpg" alt="Bathroom" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Bathroom</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_6c40f624bd.jpg" alt="Bathroom" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Bathroom</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_95a761c341.jpg" alt="Classroom" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Classroom</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_149afeceef.jpg" alt="Closet" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Closet</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_d4d93c9c5a.jpg" alt="Closet" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Closet</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_6a3631e3bc.jpg" alt="Closet" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Closet</div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<section id="experiences" style="display:none;">
+  <div class="section-inner">
+    <p class="section-label fade-up">Experiences + Events</p>
+    <h2 class="section-title fade-up">Moments designed<br>to be remembered.</h2>
+    <div class="gold-rule fade-up"></div>
+
+    <div class="services-grid fade-up" style="margin-bottom:50px;">
+      <!-- 02 EXPERIENCES + EVENTS -->
+      <div class="service-card svc-events">
+        <p class="service-number">02</p>
+        <h3 class="service-name">Experiences + Events</h3>
+        <p class="service-desc">Experiences are not just moments. They are what remain when everything else fades. We design and execute so you can fully arrive.</p>
+        <div class="svc-offerings">
+
+          <div class="svc-tier">
+            <div class="svc-tier-header" onclick="toggleTier(this)">
+              <span class="svc-tier-name">Intro Call</span>
+              <span class="price">Complimentary</span>
+              <span class="svc-toggle">+</span>
+            </div>
+            <div class="svc-tier-body">
+              <p class="svc-tier-desc">15 to 20 minutes, virtual. A brief conversation to understand your vision, the occasion, and how we can bring it to life.</p>
+            </div>
+          </div>
+
+          <div class="svc-tier">
+            <div class="svc-tier-header" onclick="toggleTier(this)">
+              <span class="svc-tier-name">Planning Session</span>
+              <span class="price">$150 to $250</span>
+              <span class="svc-toggle">+</span>
+            </div>
+            <div class="svc-tier-body">
+              <p class="svc-tier-desc">For smaller or straightforward plans. Includes:</p>
+              <ul class="svc-includes-list">
+                <li>60 to 90 minute session</li>
+                <li>Concept development</li>
+                <li>Vendor or location recommendations</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="svc-tier">
+            <div class="svc-tier-header" onclick="toggleTier(this)">
+              <span class="svc-tier-name">The Curated Experience</span>
+              <span class="price">$600 to $1,200</span>
+              <span class="svc-toggle">+</span>
+            </div>
+            <div class="svc-tier-body">
+              <p class="svc-tier-desc">A fully designed and intentional experience. Includes:</p>
+              <ul class="svc-includes-list">
+                <li>Concept and full planning</li>
+                <li>Reservations and vendor coordination</li>
+                <li>Decor direction and sourcing guidance</li>
+                <li>Timeline creation</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="svc-tier">
+            <div class="svc-tier-header" onclick="toggleTier(this)">
+              <span class="svc-tier-name">The Signature Experience</span>
+              <span class="price">$1,200 to $2,500+</span>
+              <span class="svc-toggle">+</span>
+            </div>
+            <div class="svc-tier-body">
+              <p class="svc-tier-desc">A seamless, elevated experience from start to finish. Includes:</p>
+              <ul class="svc-includes-list">
+                <li>Full planning and coordination</li>
+                <li>Design and logistics</li>
+                <li>Vendor communication</li>
+                <li>Optional day-of oversight</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <span class="service-tag">Event Planning · Date Planning · Travel Planning</span>
+      </div>
+
+
+
+    </div>
+  </div>
+</section
+    </div>
+
+    <p class="section-label fade-up" style="margin-top:10px;">Selected Work</p>
+    <div class="gold-rule fade-up"></div>
+    <div class="portfolio-panel active" id="panel-events">
+      <div class="portfolio-grid">
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_c88b4f3ea8.jpg" alt="Engagement Party" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Engagement Party</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_6ab8dfbfdc.jpg" alt="Engagement Party" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Engagement Party</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_f93ad4d156.jpg" alt="Engagement Party" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Engagement Party</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_8e5ce51311.jpg" alt="Bridal Shower" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Bridal Shower</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_3fd0459b9e.jpg" alt="Bridal Shower" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Bridal Shower</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_95d54533df.jpg" alt="Bridal Shower" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Bridal Shower</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_b976ad1643.jpg" alt="Bridal Shower" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Bridal Shower</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_f9d25a3c74.jpg" alt="Bridal Shower" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Bridal Shower</div>
+        </div>
+        <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_a13c26062e.jpg" alt="Celebration" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Celebration</div>
+        </div>
+              <div class="portfolio-item" style="position:relative;">
+          <img src="images/img_e90c430522.jpg" alt="Celebration" style="width:100%;height:100%;object-fit:cover;"/>
+          <div class="port-hover-label">Celebration</div>
+        </div>
+</div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+
+<!-- ══════════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════════ -->
+<section id="testimonials" style="display:none">
+  <div class="section-inner">
+    <p class="section-label fade-up">Kind Words</p>
+    <h2 class="section-title fade-up">What clients say.</h2>
+    <div class="gold-rule fade-up"></div>
+
+    <div class="testimonial-card fade-up">
+      <p class="testimonial-quote">If you're looking for someone who brings true vision, detail, and heart into every event, Christine is it. She planned my bridal shower with an "around the world" theme, and it was beyond anything I could have imagined. From the personalized travel tags with each guest's name to the stunning globe details, every element was intentional, cohesive, and so thoughtfully done. You could feel how much care she put into every single touch   it wasn't just beautiful, it felt personal. She has a gift for turning ideas into experiences people will remember.</p>
+      <p class="testimonial-name">V.C.</p>
+      <p class="testimonial-service">Experiences + Events · Bridal Shower</p>
+    </div>
+
+    
+      <div class="testimonial-card fade-up" style="margin-top:40px;">
+        <p class="testimonial-quote">Before working with The Oasis Architect, I believed I was a fairly organized person. It wasn't until I experienced the thoughtful design and intentional organization of a truly professional space that I realized how transformative expert organization can be. The Oasis Architect has an exceptional ability to assess a space, understand the unique needs of the individual, and develop a customized organizational system that is practical, sustainable, and beautifully executed. Every recommendation is purposeful, every solution is tailored, and the end result creates an environment that promotes both productivity and peace of mind. I have personally benefited from The Oasis Architect's expertise in organizing both my home and my professional office. The transformation has been remarkable. My work environment is now more efficient, my responsibilities are easier to manage, and I find myself approaching each day with greater focus, clarity, and confidence. The impact extends far beyond aesthetics it has fundamentally improved the way I work and function. I recommend The Oasis Architect without reservation. Her professionalism, insight, creativity, and commitment to excellence are evident in every aspect of their work. If you are looking for more than organization, if you desire a thoughtfully designed space that enhances your daily life and productivity, you will be exceptionally well served by The Oasis Architect. I can now locate documents in seconds and my home office became functional again!</p>
+        <p class="testimonial-name">D.B.</p>
+        <p class="testimonial-service">Environment + Space</p>
+      </div>
+
+      <div class="testimonial-card fade-up" style="margin-top:40px;">
+        <p class="testimonial-quote">Christine was exactly the help I was looking for. I had given her a heads up that I am ADHD and get very overwhelmed. I met her in my lobby, shook her hand and immediately got the warmest, most friendliest vibe from her! She walked into my apartment and was ready to go. She did not judge me for a moment, nor did she make me feel uncomfortable touching my underwear drawer &#128526; I finally felt like I could have someone touch every nook and cranny in my apartment and not feel weird about it. It is a very vulnerable feeling to have a stranger help you organize, and Christine didn&rsquo;t feel like a stranger at all!!! We worked diligently and I can&rsquo;t emphasize how well she communicated with me and asked me how I prefer certain things. She shared new ideas, executed, and was absolutely lovely. Definitely, without a doubt, ask her for help! She&rsquo;s top of my mind for my next project. 1000%! Thank you Christine for making it possible for me to come inside my apartment and finally feel whole &#128591;</p>
+        <p class="testimonial-name">L.T.</p>
+        <p class="testimonial-service">Environment + Space</p>
+      </div>
+      <p class="testimonials-more fade-up">More testimonials coming soon   <em>we are just getting started.</em></p>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ══════════════════════════════════════════════
+     PORTFOLIO
+══════════════════════════════════════════════ -->
+
+
+<!-- ══════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════ -->
+<section id="faq" style="display:none">
+  <div class="section-inner">
+    <p class="section-label fade-up">Need to Know</p>
+    <h2 class="section-title fade-up">Frequently asked<br>questions.</h2>
+    <div class="gold-rule fade-up"></div>
+
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Where do you serve clients? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">We are based in Arlington, Virginia and serve clients throughout the DMV   Washington D.C., Maryland, and Virginia   as well as New York. Virtual sessions are available for clients outside these areas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What can I expect? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">Every project begins with a complimentary 15 20 minute intro call   virtual and easy. From there, we move into your session with a full walkthrough, thoughtful questions, and a plan built around your lifestyle. At the end, you receive a summary and next steps. Nothing is cookie-cutter. Everything is designed for you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How does the organizing process work? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">We follow a 7-step process: Walkthrough → Sort + Edit → Design + Strategize → Source → Implement → Grand Reveal → Final Steps. You are involved at every decision point, and nothing leaves your home without your say. The goal is a space that feels calm, functional, and easy to maintain   long after we are done.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What are the payment terms? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">A $100 deposit is required to secure your booking. The remaining balance is due the day of your session or prior to your event. Consultations are paid in full at booking.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How can I pay? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">We accept Zelle, Venmo, and Stripe (credit and debit cards). Payment details are sent at booking confirmation.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What is the cancellation policy? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">We ask for at least 48 hours notice to cancel or reschedule. Cancellations made less than 48 hours in advance are non-refundable. Exceptions are considered for emergencies.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Can I bundle services? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">Yes   and we love it. Services are designed to complement each other naturally. Organize your space and photograph the result. Plan an experience and let us handle every detail. Align your strategy and then build the systems to support it. Mention your interest during your intro call and we will create a custom proposal.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ══════════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════════ -->
+<section id="contact" style="display:none">
+  <div class="section-inner">
+    <p class="section-label fade-up">Get in Touch</p>
+    <h2 class="section-title fade-up" style="font-size:32px;margin-bottom:8px;">Let's create something worth remembering.</h2>
+    <div class="gold-rule fade-up" style="margin-bottom:28px;"></div>
+
+    <div class="contact-grid fade-up">
+
+      <!-- LEFT: info panel only   no heading here -->
+      <div class="contact-info">
+        <p>Every great space and experience begins with a conversation. Reach out and let us know what you have in mind we will take it from there.</p>
+        <div class="contact-detail">
+          <a href="mailto:theoasisarchitect@gmail.com">
+            <span class="label">Email</span>
+            theoasisarchitect@gmail.com
+          </a>
+          <a href="https://instagram.com/oasisarchitect" target="_blank">
+            <span class="label">Instagram</span>
+            @oasisarchitect
+          </a>
+        </div>
+
+        <div class="contact-form-panel" style="margin-top:20px;">
+          <div class="cfp-block" style="padding-top:0">
+            <p class="cfp-label">Complete the form to book a free intro call</p>
+            <p class="cfp-desc">15 to 20 minutes · Virtual · Complimentary</p>
+          </div>
+          <div class="cfp-divider"></div>
+          <div class="cfp-block">
+            <p class="cfp-label">What to Expect</p>
+            <ul class="cfp-list">
+              <li>A brief intro call to understand your space, goals, and vision</li>
+              <li>A plan tailored specifically to you, never cookie-cutter</li>
+              <li>A summary and next steps after every session</li>
+            </ul>
+          </div>
+          <div class="cfp-divider"></div>
+          <div class="cfp-block">
+            <p class="cfp-label">Payment</p>
+            <p class="cfp-desc">Zelle · Venmo · Stripe</p>
+            <p class="cfp-desc" style="margin-top:6px">50% deposit to secure your booking</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Custom form -->
+      <div class="contact-form" style="padding-top:0;margin-top:0;">
+        <form id="inquiryForm" action="https://formspree.io/f/xkodvpbe" method="POST" onsubmit="submitForm(event)">
+
+          <div class="form-field">
+            <label>Full Name *</label>
+            <input type="text" id="f-name" required placeholder="Your full name"/>
+          </div>
+
+          <div class="form-field">
+            <label>Phone Number</label>
+            <input type="tel" id="f-phone" placeholder="(000) 000-0000"/>
+          </div>
+
+          <div class="form-field">
+            <label>Email Address *</label>
+            <input type="email" id="f-email" required placeholder="your@email.com"/>
+          </div>
+
+          <div class="form-field">
+            <label>Service Interest</label>
+            <p style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:300;">Select all that apply</p>
+            <div class="pill-group" id="pillGroup">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;">
+                <span class="svc-pill" data-value="Environment + Space" style="border-color:#7B5EA7;color:#7B5EA7;" onclick="togglePill(this)">Environment + Space</span>
+                <span class="svc-pill" data-value="Experiences + Events" style="border-color:#D63D7A;color:#D63D7A;" onclick="togglePill(this)">Experiences + Events</span>
+              </div>
+              <div style="display:flex;justify-content:center;width:100%;">
+                <span class="svc-pill" data-value="Bundle / Multiple Services" style="border-color:#C8A84B;color:#9A7218;width:calc(50% - 5px);" onclick="togglePill(this)">Bundle / Multiple</span>
+              </div>
+            </div>
+            <input type="hidden" id="f-services" name="services"/>
+          </div>
+
+          <div class="form-field" style="margin-top:20px;">
+            <label>Preferred Service Date</label>
+            <input type="date" id="f-date"/>
+          </div>
+
+          <div class="form-field">
+            <label>Tell us about your project *</label>
+            <textarea id="f-message" required placeholder="Share a little about what you have in mind..."></textarea>
+          </div>
+
+          <div id="form-status" style="display:none;padding:12px;margin-bottom:16px;font-size:13px;font-family:Jost,sans-serif;font-weight:300;"></div>
+
+          <button type="submit" class="btn-submit" id="submitBtn" style="margin-top:24px;display:block;margin-left:auto;margin-right:auto;">Send Inquiry</button>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <!-- Left: logo + tagline -->
+  <div>
+    <div class="footer-logo">The Oasis Architect</div>
+    <div class="footer-tagline">Curated Spaces · Experiences · Systems</div>
+  </div>
+
+  <!-- Middle: booking CTA -->
+  <button id="book-me-cta" onclick="bookMe()">Book Me</button>
+
+  <!-- Center/Right: contact info + socials -->
+  <div style="display:flex; flex-direction:column; align-items:flex-end; gap:14px;">
+    <div style="display:flex; gap:20px; align-items:center;">
+      <a href="mailto:theoasisarchitect@gmail.com" style="color:rgba(250,250,248,0.6);font-size:12px;letter-spacing:1px;text-decoration:none;font-family:'Jost',sans-serif;font-weight:300;">theoasisarchitect@gmail.com</a>
+
+    </div>
+    <div class="footer-social">
+      <a href="https://instagram.com/oasisarchitect" target="_blank" aria-label="Instagram" style="color:#ffffff">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://pin.it/1IJg29bXF" target="_blank" rel="noopener noreferrer" aria-label="Pinterest" style="color:#ffffff">
+        <svg viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+      </a><a href="https://www.tiktok.com/@oasisarchitect?_r=1&amp;_t=ZP-98GGvinj3uQ" target="_blank" rel="noopener noreferrer" id="tiktok-footer" aria-label="TikTok" style="color:#ffffff"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg></a>
+      
+    </div>
+  </div>
+</footer>
+
+<script>
+    // ── Service tier accordion ──
+  function toggleTier(header) {
+    const tier = header.closest('.svc-tier');
+    const isOpen = tier.classList.contains('open');
+    tier.classList.toggle('open', !isOpen);
+  }
+
+  // ── Section show/hide ──
+  function showHome() {
+    const sections = ['about','environment','experiences','testimonials','faq','contact'];
+    sections.forEach(function (s) {
+      const el = document.getElementById(s);
+      if (el) el.style.display = 'none';
+    });
+    document.querySelectorAll('.gold-divider').forEach(function (d) { d.style.display = 'none'; });
+    const home = document.getElementById('home');
+    if (home) home.style.display = 'block';
+    const gal = document.getElementById('home-gallery');
+    if (gal) gal.style.display = 'grid';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showSection(id) {
+    const sections = ['home','about','environment','experiences','testimonials','faq','contact'];
+    const target = document.getElementById(id);
+    const isVisible = target.style.display === 'block';
+
+    // Hide EVERY section (including home) so nothing bleeds between views
+    sections.forEach(s => {
+      const el = document.getElementById(s);
+      if (el) el.style.display = 'none';
+    });
+    // Hide all dividers
+    document.querySelectorAll('.gold-divider').forEach(d => d.style.display = 'none');
+    // Hide the home gallery whenever a section is opened
+    const homeGal = document.getElementById('home-gallery');
+    if (homeGal) homeGal.style.display = 'none';
+    // Reset all nav link colors
+    document.querySelectorAll('.hero-nav-bar a').forEach(a => a.classList.remove('nav-active'));
+
+    if (!isVisible) {
+      target.style.display = 'block';
+      // If contact section, ensure iframe loads
+      if (id === 'contact') {
+        const iframe = document.getElementById('contact-google-form');
+        if (iframe && !iframe.getAttribute('data-loaded')) {
+          iframe.src = iframe.src;
+          iframe.setAttribute('data-loaded', 'true');
+        }
+      }
+      // Trigger fade-up animations inside the section
+      setTimeout(() => {
+        target.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+      }, 80);
+      // Show divider immediately before section
+      let prev = target.previousElementSibling;
+      if (prev && prev.classList.contains('gold-divider')) prev.style.display = 'block';
+      // Mark nav link active
+      const link = document.querySelector('.hero-nav-bar a[data-section="' + id + '"]');
+      if (link) link.classList.add('nav-active');
+      // Scroll to section
+      setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+      // Re-init before/after carousel when Environment section opens
+      if (id === 'environment') {
+        setTimeout(function() {
+          if (typeof initCurtainById === 'function') initCurtainById(baCurrent);
+          if (typeof initLightbox === 'function') initLightbox();
+        }, 120);
+      }
+    }
+  }
+
+  // ── Scroll fade-in ──
+
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // ── FAQ accordion ──
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ── Portfolio tabs ──
+  function switchTab(btn, panel) {
+    const isActive = btn.classList.contains('active');
+    document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.portfolio-panel').forEach(p => p.classList.remove('active'));
+    if (!isActive) {
+      btn.classList.add('active');
+      document.getElementById('panel-' + panel).classList.add('active');
+      setTimeout(function() {
+        initCurtainById(baCurrent);
+        initLightbox();
+      }, 100);
+    }
+  }
+
+  // ── Contact form submission ──
+  function submitForm(e) {
+    e.preventDefault();
+    const name    = document.getElementById('f-name').value;
+    const phone   = document.getElementById('f-phone').value;
+    const email   = document.getElementById('f-email').value;
+    const date    = document.getElementById('f-date').value;
+    const message = document.getElementById('f-message').value;
+    const services = document.getElementById('f-services') ? document.getElementById('f-services').value : '';
+
+    const status = document.getElementById('form-status');
+    const btn = document.getElementById('submitBtn');
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    status.style.display = 'none';
+
+    var params = new URLSearchParams();
+    params.append('name', name);
+    params.append('phone', phone || 'Not provided');
+    params.append('email', email);
+    params.append('_replyto', email);
+    params.append('services', services || 'Not selected');
+    params.append('preferred_date', date || 'Not provided');
+    params.append('message', message);
+    params.append('_subject', 'New Inquiry from ' + name + ' - The Oasis Architect');
+
+    fetch('https://formspree.io/f/xkodvpbe', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: params.toString()
+    })
+    .then(function (res) {
+      if (res.ok) {
+        document.getElementById('inquiryForm').reset();
+        document.querySelectorAll('.svc-pill.selected').forEach(function (p) {
+          p.classList.remove('selected');
+          p.style.background = 'transparent';
+        });
+        const hidden = document.getElementById('f-services');
+        if (hidden) hidden.value = '';
+
+        status.style.display = 'block';
+        status.style.background = 'rgba(200,168,75,0.1)';
+        status.style.border = '1px solid rgba(200,168,75,0.3)';
+        status.style.color = '#9A7218';
+        status.innerHTML = 'Thank you ' + name + '! Your inquiry has been sent. We will be in touch shortly.';
+        btn.textContent = 'Sent';
+        setTimeout(function () { btn.textContent = 'Send Inquiry'; btn.disabled = false; }, 4000);
+      } else {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          var msg = (data.errors || []).map(function (x) { return x.message; }).join(', ');
+          throw new Error(msg || ('HTTP ' + res.status + ' from Formspree'));
+        });
+      }
+    })
+    .catch(function (err) {
+      console.error('Formspree submission failed:', err);
+      status.style.display = 'block';
+      status.style.background = 'rgba(190,70,70,0.08)';
+      status.style.border = '1px solid rgba(190,70,70,0.3)';
+      status.style.color = '#A33';
+      status.innerHTML = 'Something went wrong sending your inquiry. Please email us directly at <a href="mailto:theoasisarchitect@gmail.com" style="color:#9A7218;">theoasisarchitect@gmail.com</a>'
+        + '<br><span style="font-size:11px;opacity:0.75;">Details: ' + (err && err.message ? err.message : 'unknown error') + '</span>';
+      btn.textContent = 'Send Inquiry';
+      btn.disabled = false;
+    });
+  }
+
+
+  function togglePill(el) {
+    const color = el.style.borderColor;
+    el.classList.toggle('selected');
+    if (el.classList.contains('selected')) {
+      el.style.background = color;
+    } else {
+      el.style.background = 'transparent';
+    }
+    const selected = [...document.querySelectorAll('.svc-pill.selected')]
+                      .map(p => p.dataset.value).join(', ');
+    const hidden = document.getElementById('f-services');
+    if (hidden) hidden.value = selected;
+  }
+
+
+  // ── Curtain Sliders ──
+  function initCurtain(wrapId, afterId, handleId) {
+    const wrap = document.getElementById(wrapId);
+    const after = document.getElementById(afterId);
+    const handle = document.getElementById(handleId);
+    if (!wrap) return;
+    let dragging = false;
+
+    function setPos(clientX) {
+      const rect = wrap.getBoundingClientRect();
+      let pct = Math.max(0, Math.min(100, ((rect.right - clientX) / rect.width) * 100));
+      after.style.width = pct + '%';
+      handle.style.right = pct + '%';
+    }
+
+    wrap.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); });
+    window.addEventListener('mousemove', e => { if(dragging) setPos(e.clientX); });
+    window.addEventListener('mouseup', () => dragging = false);
+    wrap.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); e.preventDefault(); }, {passive:false});
+    window.addEventListener('touchmove', e => { if(dragging) { setPos(e.touches[0].clientX); e.preventDefault(); } }, {passive:false});
+    window.addEventListener('touchend', () => dragging = false);
+  }
+  // Init curtain on load (carousel now lives in the Environment section)
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => initCurtainById(baCurrent), 150);
+  });
+
+
+  // ── Lightbox ──
+  let lightboxImages = [];
+  let lightboxIndex = 0;
+
+  function openLightbox(img, caption) {
+    // Collect all visible portfolio images
+    lightboxImages = [...document.querySelectorAll('.portfolio-item img[src^="data"]')];
+    lightboxIndex = lightboxImages.indexOf(img);
+    if (lightboxIndex === -1) { lightboxIndex = 0; lightboxImages = [img]; }
+    showLightboxImage();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showLightboxImage() {
+    const img = lightboxImages[lightboxIndex];
+    document.getElementById('lightboxImg').src = img.src;
+    const label = img.closest('.portfolio-item') ? img.closest('.portfolio-item').querySelector('.port-hover-label') : null;
+    document.getElementById('lightboxCaption').textContent = label ? label.textContent : '';
+  }
+
+  function closeLightbox(e) {
+    if (e.target === document.getElementById('lightbox')) {
+      closeLightboxDirect();
+    }
+  }
+
+  function closeLightboxDirect() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function lightboxNav(dir, e) {
+    e.stopPropagation();
+    lightboxIndex = (lightboxIndex + dir + lightboxImages.length) % lightboxImages.length;
+    showLightboxImage();
+  }
+
+  // Close on ESC key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightboxDirect();
+    if (e.key === 'ArrowRight') { if (document.getElementById('lightbox').classList.contains('open')) lightboxNav(1, {stopPropagation:()=>{}}); }
+    if (e.key === 'ArrowLeft') { if (document.getElementById('lightbox').classList.contains('open')) lightboxNav(-1, {stopPropagation:()=>{}}); }
+  });
+
+  // Add click handlers to all portfolio items with real images
+  function initLightbox() {
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      const img = item.querySelector('img[src^="data"]');
+      if (img) {
+        item.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const caption = item.querySelector('.port-hover-label');
+          openLightbox(img, caption ? caption.textContent : '');
+        });
+      }
+    });
+  }
+
+  // Init on page load and whenever a section opens
+  document.addEventListener('DOMContentLoaded', initLightbox);
+  // ── Before & After Carousel ──
+  var baSlides = document.querySelectorAll('.ba-slide');
+  var baCurrent = 0;
+  var baTotalSlides = 8;
+
+  function initCurtainById(num) {
+    var wrap = document.getElementById('curtain_' + num);
+    var after = document.getElementById('curtainAfter_' + num);
+    var handle = document.getElementById('curtainHandle_' + num);
+    if (!wrap || !after || !handle) return;
+    // Always reset to center (50%) when initializing
+    after.style.width = '50%';
+    handle.style.right = '50%';
+    var dragging = false;
+    function setPos(clientX) {
+      var rect = wrap.getBoundingClientRect();
+      var pct = Math.max(0, Math.min(100, ((rect.right - clientX) / rect.width) * 100));
+      after.style.width = pct + '%';
+      handle.style.right = pct + '%';
+    }
+    wrap.addEventListener('mousedown', function(e) { dragging = true; setPos(e.clientX); });
+    window.addEventListener('mousemove', function(e) { if(dragging) setPos(e.clientX); });
+    window.addEventListener('mouseup', function() { dragging = false; });
+    wrap.addEventListener('touchstart', function(e) { dragging = true; setPos(e.touches[0].clientX); e.preventDefault(); }, {passive:false});
+    window.addEventListener('touchmove', function(e) { if(dragging) { setPos(e.touches[0].clientX); e.preventDefault(); } }, {passive:false});
+    window.addEventListener('touchend', function() { dragging = false; });
+  }
+
+  function goToSlide(n) {
+    var slides = document.querySelectorAll('.ba-slide');
+    var dots = document.querySelectorAll('#ba-dots span');
+    slides[baCurrent].style.display = 'none';
+    dots[baCurrent].style.background = 'rgba(200,168,75,0.3)';
+    baCurrent = (n + baTotalSlides) % baTotalSlides;
+    slides[baCurrent].style.display = 'flex';
+    dots[baCurrent].style.background = '#C8A84B';
+    setTimeout(function() { initCurtainById(baCurrent); }, 50);
+  }
+
+  function changeSlide(dir) { goToSlide(baCurrent + dir); }
+
+
+  // ── Auto-rotate carousel ──
+  var baTimer = setInterval(function() { changeSlide(1); }, 4000);
+
+  // Pause on interaction, resume after 6 seconds
+  function resetTimer() {
+    clearInterval(baTimer);
+    baTimer = setInterval(function() { changeSlide(1); }, 4000);
+  }
+
+  document.querySelectorAll('.ba-slide').forEach(function(slide) {
+    slide.addEventListener('mousedown', function() { clearInterval(baTimer); });
+    slide.addEventListener('touchstart', function() { clearInterval(baTimer); });
+    slide.addEventListener('mouseup', function() { resetTimer(); });
+    slide.addEventListener('touchend', function() { resetTimer(); });
+  });
+
+  document.querySelectorAll('button[onclick^="changeSlide"]').forEach(function(btn) {
+    btn.addEventListener('click', function() { resetTimer(); });
+  });
+
+  // Init first slide
+  setTimeout(function() { initCurtainById(0); }, 200);
+
+</script>
+
+  <!-- Floating scroll-to-top button (mobile only) -->
+  <button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+    &#8679;
+  </button>
+
+  <script>
+    // Show/hide scroll button based on scroll position
+    window.addEventListener('scroll', function() {
+      const btn = document.getElementById('scrollTopBtn');
+      if (window.scrollY > 300) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    });
+  </script>
+
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="closeLightboxDirect()">&times;</span>
+    <span class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1, event)">&#8249;</span>
+    <img id="lightboxImg" src="" alt=""/>
+    <span class="lightbox-nav lightbox-next" onclick="lightboxNav(1, event)">&#8250;</span>
+    <span class="lightbox-caption" id="lightboxCaption"></span>
+  </div>
+
+
+<script>
+  function bookMe() {
+    if (typeof showSection === 'function') {
+      var el = document.getElementById('contact');
+      if (el && el.style.display === 'block') {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        showSection('contact');
+        setTimeout(function () {
+          var c = document.getElementById('contact');
+          if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 60);
+      }
+    }
+  }
+</script>
+</body>
+</html>
